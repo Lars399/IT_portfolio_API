@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your dad joke</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-700 font-sans">
+
+  <!-- Header -->
+  <header class="flex items-center gap-4 p-4 border-b border-gray-200">
+    <img src="https://images-apilist-fun.sfo2.cdn.digitaloceanspaces.com/icanhazdadjoke_api.png" alt="Logo"
+      class="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 object-cover" />
+    <h1 class="text-sm sm:text-base font-medium">Request a dad joke</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex flex-col items-center justify-center text-center min-h-[calc(100vh-72px)] p-4 sm:p-8">
+    <section>
+      <h2 class="text-xl sm:text-2xl font-semibold mb-4">Your dad joke</h2>
+      <div id="jokeContainer" class="max-w-xl text-gray-600 mb-8 text-sm sm:text-base space-y-4"></div>
+      <button id="requestJoke"
+        class="px-6 sm:px-8 py-2 rounded-full border border-gray-300 hover:bg-gray-100 transition text-sm sm:text-base">
+        Request another
+      </button>
+    </section>
+  </main>
+
+  <script>
+    async function fetchJokes() {
+      const jokeContainer = document.getElementById('jokeContainer');
+      jokeContainer.innerHTML = 'Loading jokes...';
+
+      try {
+        const requests = [
+          fetch('https://icanhazdadjoke.com/', { headers: { Accept: 'application/json' } }),
+          fetch('https://icanhazdadjoke.com/', { headers: { Accept: 'application/json' } }),
+          fetch('https://icanhazdadjoke.com/', { headers: { Accept: 'application/json' } })
+        ];
+
+        const responses = await Promise.all(requests);
+        const jokesData = await Promise.all(responses.map(res => res.json()));
+
+        jokeContainer.innerHTML = jokesData.map((data, index) =>
+          `<p><strong>Joke ${index + 1}:</strong> ${data.joke}</p>`
+        ).join('<br><br>');
+
+      } catch (error) {
+        jokeContainer.innerHTML = 'Oops! Something went wrong while fetching the jokes.';
+        console.error(error);
+      }
+    }
+
+    // Haal direct grappen op bij laden
+    window.addEventListener('DOMContentLoaded', fetchJokes);
+
+    // Nieuwe grappen ophalen bij klikken
+    document.getElementById('requestJoke').addEventListener('click', fetchJokes);
+  </script>
+
+</body>
+
+</html>

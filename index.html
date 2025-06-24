@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request a dad joke</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-700 font-sans">
+
+  <!-- Header -->
+  <header class="flex items-center gap-4 p-4 border-b border-gray-200">
+    <img src="https://images-apilist-fun.sfo2.cdn.digitaloceanspaces.com/icanhazdadjoke_api.png" alt="Logo"
+      class="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 object-cover" />
+    <h1 class="text-sm sm:text-base font-medium">Request a dad joke</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex flex-col items-center justify-center text-center min-h-[calc(100vh-72px)] p-4 sm:p-8">
+    <section>
+      <h2 class="text-xl sm:text-2xl font-semibold mb-4">Request a dad joke!</h2>
+      <p class="max-w-xl text-gray-600 mb-8 text-sm sm:text-base">
+        By simply pressing the button below you will request and receive a dad joke.
+        Have fun laughing!
+      </p>
+      <button id="goToJoke"
+        class="px-6 sm:px-8 py-2 rounded-full border border-gray-300 hover:bg-gray-100 transition text-sm sm:text-base">
+        Request
+      </button>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('goToJoke').addEventListener('click', () => {
+      window.location.href = 'joke.html';
+    });
+  </script>
+
+</body>
+
+</html>
